@@ -10,3 +10,8 @@ export type ParticipantFormData = {
     lastName: string;
     age: number;
   }
+
+export type URLSearchParameters = {
+    pageNumber?: string,
+    pageSize?: string,
+}

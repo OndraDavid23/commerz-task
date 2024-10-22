@@ -1,17 +1,14 @@
 import { Participant } from "../type-defenitions";
 import { useEffect, useState } from "react"
-import { useSearchParams } from "react-router-dom";
 import { getPaginatedParticipants } from "../participantService";
 import Pagination from "./pagination";
+import useURLParameters from "../hooks/useURLParams";
 
 export default function ParticipantTable(){
 
     const [participants, setParticipants] = useState<Participant[]>([]);
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [pageNumber, setPageNumber] = useState<number>(0);
-    const [pageSize, setPageSize] = useState<string>("10");
     const [maxPage, setMaxPage] =useState<number>(0);
-
+    const {searchParams, pageNumber, pageSize } = useURLParameters();
 
     useEffect(()=>{
         const fetchParticipants = async () => {    
@@ -22,30 +19,6 @@ export default function ParticipantTable(){
         fetchParticipants();
 
     },[pageNumber, pageSize, searchParams])
-
-    const paginateForward = () => {
-        if(pageNumber < maxPage-1){
-            setPageNumber(pageNumber+1);
-            setSearchParams({pageNumber: (pageNumber+1).toString(), pageSize: pageSize})
-        }
-        else{
-            return;
-        }
-    }
-    const paginateBack = () => {
-        if(pageNumber === 0){
-            return;
-        }
-        setPageNumber(pageNumber-1);
-        setSearchParams({pageNumber: (pageNumber-1).toString(), pageSize: pageSize});
-    }
-
-    const handlePageSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const newPageSize = e.target.value;
-        setPageSize(newPageSize);
-        setPageNumber(0);
-        setSearchParams({pageNumber: "0", pageSize: newPageSize});
-    }
 
     return(
         <>
@@ -77,7 +50,7 @@ export default function ParticipantTable(){
         </tbody>
         </table>
         </div>
-            <Pagination pageSize={pageSize} paginateBack={paginateBack} paginateForward={paginateForward} handlePageSizeChange={handlePageSizeChange}/>
+            <Pagination maxPage={maxPage}/>
         <div className="flex justify-center"></div>
         </div>
         </>
