@@ -35,13 +35,13 @@ export default function ParticipantTable(){
         <tbody>
             {participants.map((participant) => (
                 <tr className="border-b odd:bg-white even:bg-slate-100 hover:bg-slate-200" key={participant.id}>
-                    <td>
+                    <td className="p-2">
                         {participant.firstName}
                     </td>
-                    <td>
+                    <td className="p-2">
                         {participant.lastName}
                     </td>
-                    <td>
+                    <td className="p-2">
                         {participant.age}
                     </td>
 

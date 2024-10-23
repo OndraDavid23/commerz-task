@@ -11,7 +11,7 @@ export default function Participants(){
                 <ParticipantTable/> 
             </div>
             <div className="flex justify-center">
-            <button className="bg-cbyellow max-w-fit rounded-full py-4 px-8 font-bold">
+            <button className="bg-cbyellow max-w-fit rounded-full py-4 mb-4 px-8 font-bold">
                 <Link to={"/create"}>Add participant</Link>
             </button>
             </div>

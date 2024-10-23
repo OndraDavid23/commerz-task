@@ -23,7 +23,7 @@ export default function Home(){
         <div>
             <Outlet/>           
         </div>
-        <div className= "bg-cbgreen text-cbfont absolute bottom-0 w-full">
+        <div className= "bg-cbgreen text-cbfont bottom-0 md:absolute w-full">
         <p>
             {date}
         </p>

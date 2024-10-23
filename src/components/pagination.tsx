@@ -28,7 +28,7 @@ export default function Pagination({maxPage}: {maxPage: number}){
             <button onClick={paginateBack} className="bg-slate-200 max-w-fit rounded-full p-2  font-bold m-4">
             {"<"}
             </button>
-            <select value={pageSize} onChange={handlePageSizeChange}>
+            <select value={pageSize} defaultValue="10" onChange={handlePageSizeChange}>
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
