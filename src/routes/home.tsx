@@ -5,7 +5,7 @@ export default function Home(){
     console.log(date);
 
     return(
-        <div>
+        <div className="flex flex-col min-h-screen">
         <div className= "flex w-full bg-cbgreen items-end">
             <div className="p-2">
             <img
@@ -20,10 +20,10 @@ export default function Home(){
             </Link>
             </div>
         </div>
-        <div>
+        <div className="flex-grow"> 
             <Outlet/>           
         </div>
-        <div className= "bg-cbgreen text-cbfont bottom-0 md:absolute w-full">
+        <div className= "bg-cbgreen text-cbfont w-full">
         <p>
             {date}
         </p>
