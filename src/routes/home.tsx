@@ -2,7 +2,6 @@ import { Link, Outlet } from "react-router-dom";
 export default function Home(){
 
     const date = new Date().toDateString();
-    console.log(date);
 
     return(
         <div className="flex flex-col min-h-screen">

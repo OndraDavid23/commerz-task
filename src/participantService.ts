@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { FormServerError } from "./type-defenitions";
 
 const formSchema = z.object({
     firstName: z.string({required_error: "First name is required"}).min(3, { message: "Must be 3 or more characters long" }),
@@ -25,14 +26,13 @@ export async function getPaginatedParticipants(searchParams: URLSearchParams){
         if (pageNumber) url.searchParams.append("pageNumber", pageNumber);
         if (pageSize) url.searchParams.append("pageSize", pageSize);
 
-        console.log(url);
         const response = await fetch(url,{});
         const responseJson = await response.json();
         return responseJson;
     }
 
+    
 export async function createParticipant(formData: FormData){
-
     const validatedFields = formSchema.safeParse({
         firstName: formData.get("firstName"),
         lastName: formData.get("lastName"),
@@ -45,17 +45,32 @@ export async function createParticipant(formData: FormData){
             message: 'Missing Fields. Failed to create participant.',
         }
     }
-    console.log(validatedFields.data)
 
-    const response = await fetch("http://127.0.0.1:9192/api/v1/participants/create", {
+    let response = await fetch("http://127.0.0.1:9192/api/v1/participants/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(validatedFields.data),
     })
-    console.log(validatedFields);
-    const message = await response.json()
 
-    console.log(message);
+    if(response.status === 400){
+        const errorData = await response.json();
+        return <FormServerError> {
+            errors: errorData.data,
+            message: errorData.message,
+        };
+    }
+
+    if(response.status === 500){
+        return {
+            serverErrors: true,
+            message: 'Internal server error. Please try again later.',
+        };
+    }
+    
+    return response.json();
+
+
+
 }

@@ -5,8 +5,8 @@ import { useCallback } from "react";
 export default function useURLParameters(){
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const pageNumber = searchParams.get("pageNumber") as URLSearchParameters["pageNumber"];
-    const pageSize = searchParams.get("pageSize") as URLSearchParameters["pageSize"];
+    const pageNumber = searchParams.get("pageNumber")as URLSearchParameters["pageNumber"];
+    const pageSize = (searchParams.get("pageSize") as URLSearchParameters["pageSize"]) || "10";
 
     const setURLSearchParams = useCallback((urlLSearchParams: URLSearchParameters) => {
         setSearchParams((params) => {
